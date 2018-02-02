@@ -1,0 +1,124 @@
+.data {
+	display: inline;
+}
+
+.deco-str {
+	margin-right: 0.5%;
+	text-decoration: underline;
+}
+
+.deco-str:focus {
+	background: yellow;
+}
+
+.in-out-fields {
+	margin: 15px 0 0 5px;
+	display: none;
+	width: 49%;
+	padding: 5px;
+	border: 1px solid;
+	overflow-wrap: break-word;
+}
+
+#in-mode>input[type="radio"], label {
+	cursor: pointer;
+}
+
+#sub-div-deco {
+	display: none;
+}
+
+#show-hide-btn, #reset-btn {
+	display: none;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+#modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 15%;
+}
+
+/* The Close Button */
+#close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+#close:hover, #close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#password {
+	border: 2px solid #dadada;
+	border-radius: 7px;
+}
+
+#password:focus {
+	outline: none;
+	border-color: #9ecaed;
+	box-shadow: 0 0 10px #9ecaed;
+}
+
+.in-err {
+	border-color: #cc0000;
+}
+
+.in-err:FOCUS {
+	border-color: #cc0000;
+}
+
+#pswd-err {
+	color: red;
+}
+
+#content-fixed {
+	border-bottom: 1px solid;
+	padding: 5px;
+	width: 98.4%;
+	height: 85px;
+	top: 0px;
+	position: fixed;
+	background: #F0F0F0;
+	margin-left: 6px;
+}
+
+#content-scrollable {
+	display: flex;
+	margin: 80px auto;
+}
+
+#btn-div {
+	margin-top: 0.1%;
+}
+
+.sub-in-sect {
+	display: inline;
+}
+
+#msg-div {
+	width: 20%;
+	top: 90px;
+	left: 5px;
+}

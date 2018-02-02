@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Encoding Test</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/styler.css">
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/init.js"></script>
+<script type="text/javascript" src="js/control.js"></script>
+<script type="text/javascript" src="js/crypt.js"></script>
+</head>
+<body>
+	<div id="content-div">
+		<div id="content-fixed">
+			<div id="in-mode">
+				<section class="sub-in-sect">
+					<label style="cursor: default;">Input Mode:</label> <input
+						type="radio" id="md-enc" name="mode" class="md-in"> <label
+						for="md-enc">Encoded</label> <input type="radio" id="md-dec"
+						name="mode" class="md-in"> <label for="md-dec">Decoded</label>
+				</section>
+				<section class="sub-in-sect">
+					<label>&nbsp;|&nbsp;</label> <label style="cursor: default;">Page
+						Mode:</label> <input type="radio" id="md-one" name="paging" class="md-pg">
+					<label for="md-one">Single Page</label> <input type="radio"
+						id="md-multi" name="paging" class="md-pg"> <label
+						for="md-multi">Multiple Page</label>
+				</section>
+				<section class="sub-in-sect" id="sub-div-deco">
+					<label>&nbsp;|&nbsp;</label> <label for="md-deco">Decoration
+						Mode</label><input type="checkbox" id="md-deco" value="1">
+				</section>
+			</div>
+			<div id="btn-div">
+				<button id="lck-scr" class="btn btn-outline-dark btn-sm">Lock
+					Screen</button>
+				<button id="show-hide-btn" class="btn btn-outline-dark btn-sm">Display
+					Original Content</button>
+				<button id="reset-btn" class="btn btn-outline-danger btn-sm">Reset
+					Content</button>
+			</div>
+		</div>
+		<div id="msg-div" class="alert" role="alert"></div>
+		<div id="content-scrollable">
+			<div class="in-out-fields align-baseline" id="text"
+				contenteditable="true"></div>
+			<div id="display" class="in-out-fields align-baseline"></div>
+		</div>
+		<input type="hidden" value="0" id="status">
+	</div>
+	<!-- 	Password input screen -->
+	<div id="modal" class="modal">
+		<div id="modal-content">
+			<span id="close">&times;</span> <br> <input type="password"
+				id="pswd" name="password">
+			<button id="action-btn" value="0">Lock</button>
+			<span id="pswd-err"></span>
+		</div>
+	</div>
+</body>
+</html>
