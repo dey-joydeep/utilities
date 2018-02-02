@@ -118,7 +118,7 @@ function handleInput(elem, e) {
 	if (isValidInput(inputData, inputType)) {
 		if (inputType === 'insertParagraph') {
 		} else {
-			eraseContent(elem, 'deleteContentBackward', ERASE_MODE.single);
+			eraseContent(elem, ERASE_TYPE.BCK_SPC, ERASE_MODE.single);
 			encodeInput(e.originalEvent.data);
 		}
 	}
