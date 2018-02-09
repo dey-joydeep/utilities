@@ -107,20 +107,25 @@ function handleInput(elem, e) {
 		showHideContent();
 	}
 
-	var inputType = e.originalEvent.inputType;
+	var inputType = e.originalEvent.inputType || e.originalEvent.type;
 	if (elem.textContent.length > 0
 			&& (inputType === ERASE_TYPE.BCK_SPC || inputType === ERASE_TYPE.DEL)) {
 		eraseContent(elem, inputType, ERASE_MODE.multi);
 		return;
 	}
 
-	var inputData = e.originalEvent.data;
+	var inputData = e.originalEvent.clipboardData === undefined ? e.originalEvent.data
+			: e.originalEvent.clipboardData.getData('Text');
 	if (isValidInput(inputData, inputType)) {
 		if (inputType === 'insertParagraph') {
+			inputData = '↯';
 		} else {
-			eraseContent(elem, ERASE_TYPE.BCK_SPC, ERASE_MODE.single);
-			encodeInput(e.originalEvent.data);
+			if (inputType !== 'paste')
+				eraseContent(elem, ERASE_TYPE.BCK_SPC, ERASE_MODE.single);
+			else
+				e.preventDefault();
 		}
+		encodeInput(inputData);
 	}
 }
 
@@ -131,6 +136,10 @@ function isValidInput(data, inputType) {
 	var cursorPoition = document.getSelection().focusOffset;
 
 	if (inputType === 'insertParagraph') {
+		if (field.text().length === 0) {
+			$(field).empty();
+			return true;
+		}
 		var rmElems = field.children().not('.data');
 		for (var i = 0; i < rmElems.length; i++) {
 			var currElem = $(rmElems[i]);
@@ -145,6 +154,8 @@ function isValidInput(data, inputType) {
 			if (prevTextLen % MAX_LEN === 0)
 				return true;
 		}
+	} else if (inputType === 'paste' && cursorPoition % MAX_LEN === 0) {
+		return true;
 	} else {
 
 		if (data === null)
@@ -282,8 +293,11 @@ function controlContent(content, mode) {
 	var newContent = "";
 	if (mode === 0) { // Encode
 		for (var i = 0; i < content.length; i++) {
-			var code = content.charCodeAt(i).toString(16).toUpperCase();
-			newContent += code.length < MAX_LEN ? "0000".substr(MAX_LEN
+			var char = content.charAt(i);
+			if (char === '↯')
+				char = '\n';
+			var code = char.charCodeAt(i).toString(16).toUpperCase();
+			newContent += code.length < MAX_LEN ? "0000".substr(0, MAX_LEN
 					- code.length)
 					+ code : code;
 		}
