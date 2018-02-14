@@ -1,0 +1,46 @@
+.switch-div {
+	display: inline-block;
+	position: relative;
+	width: 60px;
+	height: 32px;
+}
+
+.switch {
+	border-radius: 20px;
+}
+
+.toggle {
+	position: absolute;
+	border-radius: 50%;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.toggle-def {
+	height: 23px;
+	width: 23px;
+	bottom: 2px;
+}
+
+.toggle-lg {
+	height: 27px;
+	width: 27px;
+	bottom: -5px;
+}
+
+.toggle-sm {
+	height: 20px;
+	width: 20px;
+	bottom: 6px;
+}
+
+.t-off {
+	/* 	left: 6px; */
+	float: left;
+}
+
+.t-on {
+	/* 	right: -37px; */
+	float: right;
+	margin-left: 4%;
+}
