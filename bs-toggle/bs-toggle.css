@@ -6,6 +6,7 @@
 }
 
 .switch {
+	position: relative;
 	border-radius: 20px;
 }
 
@@ -19,28 +20,27 @@
 .toggle-def {
 	height: 23px;
 	width: 23px;
-	bottom: 2px;
+	bottom: 6px;
 }
 
 .toggle-lg {
-	height: 27px;
-	width: 27px;
-	bottom: -5px;
+	height: 25px;
+	width: 25px;
+	bottom: 9px;
 }
 
 .toggle-sm {
 	height: 20px;
 	width: 20px;
-	bottom: 6px;
+	bottom: 4.5px;
 }
 
 .t-off {
-	/* 	left: 6px; */
-	float: left;
+	left: 0;
+	margin-left: 3%;
 }
 
 .t-on {
-	/* 	right: -37px; */
-	float: right;
-	margin-left: 4%;
+	right: 0px;
+	margin-right: 3%;
 }
