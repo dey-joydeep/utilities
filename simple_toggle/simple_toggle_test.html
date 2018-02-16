@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Toggle Switch Test</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="simple-toggle.css">
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+<script type="text/javascript" src="simple-toggle.js"></script>
+<script>
+	$(function() {
+		var param1 = {
+			on : 'Decorated',
+			off : 'Simple',
+			onstyle : 'primary',
+			offstyle : 'dark',
+			size : 'large'
+		};
+		var param2 = {
+			on : '',
+			off : 'Simple',
+			onstyle : 'outline-primary',
+			offstyle : 'outline-dark',
+			size : 'small'
+		};
+		var param3 = {
+			on : 'Decorated',
+			off : 'Simple',
+			onstyle : 'outline-primary',
+			offstyle : 'outline-dark',
+		};
+
+		$('#chkbx1').initToggle(param1);
+		$('#chkbx2').initToggle(param2);
+		$('#chkbx3').initToggle(param3);
+
+		// 		$('.chkbx').initToggle(param2);
+
+		$('input[type="checkbox"]').change(function() {
+			$('#msg').text('Checkbox checked: ' + $(this).is(':checked'));
+		});
+	});
+</script>
+</head>
+<body>
+	<div style="margin-top: 10px; margin-left: 25px;">
+		<div>
+			<label>Mode Large: <input type="checkbox" id="chkbx1"
+				class="chkbx" checked="checked"></label>
+		</div>
+		<br>
+		<div>
+			<label>Mode Small: <input type="checkbox" id="chkbx2"
+				class="chkbx" checked="checked"></label>
+		</div>
+		<br>
+		<div>
+			<label>Mode Default: <input type="checkbox" id="chkbx3"
+				class="chkbx""></label>
+		</div>
+		<div id="msg"></div>
+	</div>
+</body>
+</html>
