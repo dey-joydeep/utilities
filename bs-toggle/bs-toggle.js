@@ -1,3 +1,4 @@
+var _groupCnt = 0;
 const
 INIT_PARAM = {
 	on : 'On',
@@ -14,6 +15,10 @@ INIT_PARAM = {
 
 function init(target, param) {
 	target.hide();
+	// $.each(target, function(k, v) {
+	// console.log(k);
+	// console.log(v);
+	// });
 	TOGGLE.filterParams(param);
 	TOGGLE.createSwitches(target);
 
@@ -27,6 +32,8 @@ function init(target, param) {
 
 	TOGGLE.handleSwitchSize();
 	TOGGLE.handleSwitchColor();
+
+	_groupCnt++;
 }
 
 var TOGGLE = {
@@ -75,8 +82,10 @@ var TOGGLE = {
 	},
 
 	createSwitches : function(target) {
-		var onLabel = $('<label class="switch switch-on btn"></label>');
-		var offLabel = $('<label class="switch switch-off btn"></label>');
+		var onLabel = $('<label class="switch switch-on-' + _groupCnt
+				+ ' btn"></label>');
+		var offLabel = $('<label class="switch switch-off-' + _groupCnt
+				+ ' btn"></label>');
 
 		onLabel.text(INIT_PARAM.on);
 		offLabel.text(INIT_PARAM.off);
@@ -105,35 +114,37 @@ var TOGGLE = {
 	},
 
 	handleSwitchSize : function() {
-		$('.switch-off').css('padding-left', INIT_PARAM.padding + '%');
-		$('.switch-on').css('padding-right', INIT_PARAM.padding + '%');
+		$('.switch-off-' + _groupCnt).css('padding-left',
+				INIT_PARAM.padding + '%');
+		$('.switch-on-' + _groupCnt).css('padding-right',
+				INIT_PARAM.padding + '%');
 	},
 
 	handleSwitchColor : function() {
-		$('.t-off').css('background-color',
-				COLOR_HANDLER.getTextColor($('#switch-off')));
-		$('.t-on').css('background-color',
-				COLOR_HANDLER.getTextColor($('#switch-on')));
+		$('.switch-off-' + _groupCnt).find('.t-off').css('background-color',
+				COLOR_HANDLER.getTextColor($('.switch-off-' + _groupCnt)));
+		$('.switch-on-' + _groupCnt).find('.t-on').css('background-color',
+				COLOR_HANDLER.getTextColor($('.switch-on-' + _groupCnt)));
 
 		if (INIT_PARAM.isOffOutlined) {
-			$('.switch-off').hover(
+			$('.switch-off-' + _groupCnt).hover(
 					function() {
-						$('.t-off').css('background-color', '#fff');
+						$(this).find('.t-off').css('background-color', '#fff');
 					},
 					function() {
-						$('.t-off').css('background-color',
-								COLOR_HANDLER.getBGColor($('#switch-off')));
+						$(this).find('.t-on').css('background-color',
+								COLOR_HANDLER.getBGColor($(this)));
 					});
 		}
 
 		if (INIT_PARAM.isOnOutlined) {
-			$('.switch-on').hover(
+			$('.switch-on-' + _groupCnt).hover(
 					function() {
-						$('.t-on').css('background-color', '#fff');
+						$(this).find('.t-off').css('background-color', '#fff');
 					},
 					function() {
-						$('.t-on').css('background-color',
-								COLOR_HANDLER.getBGColor($('#switch-on')));
+						$(this).find('.t-on').css('background-color',
+								COLOR_HANDLER.getBGColor($(this)));
 					});
 		}
 	}
