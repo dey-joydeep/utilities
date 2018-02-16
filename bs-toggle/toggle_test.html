@@ -18,19 +18,31 @@
 <script type="text/javascript" src="bs-toggle.js"></script>
 <script>
 	$(function() {
-		var param = {
+		var param1 = {
 			on : 'Decorated',
 			off : 'Simple',
 			onstyle : 'outline-primary',
 			offstyle : 'outline-dark',
 			size : 'large'
 		};
-		param.size = 'small';
-		init($('#chkbx1'), param);
-		param.size = 'large';
-		init($('#chkbx2'), param);
-		param.size = '';
-		init($('#chkbx3'), param);
+		var param2 = {
+			on : 'Decorated',
+			off : 'Simple',
+			onstyle : 'outline-primary',
+			offstyle : 'outline-dark',
+			size : 'small'
+		};
+		var param3 = {
+			on : 'Decorated',
+			off : 'Simple',
+			onstyle : 'outline-primary',
+			offstyle : 'outline-dark',
+			size : ''
+		};
+
+		$('#chkbx1').initToggle(param1);
+		$('#chkbx2').initToggle(param2);
+		$('#chkbx3').initToggle(param3);
 
 		$('input[type="checkbox"]').change(function() {
 			$('#msg').text('Checkbox checked: ' + $(this).is(':checked'));
@@ -42,17 +54,17 @@
 	<div style="margin-top: 10px; margin-left: 25px;">
 		<div>
 			<label>Mode Small: <input type="checkbox" id="chkbx1"
-				checked="checked"></label>
+				class="chkbx" checked="checked"></label>
 		</div>
 		<br>
 		<div>
 			<label>Mode Large: <input type="checkbox" id="chkbx2"
-				checked="checked"></label>
+				class="chkbx" checked="checked"></label>
 		</div>
 		<br>
 		<div>
 			<label>Mode Default: <input type="checkbox" id="chkbx3"
-				checked="checked"></label>
+				class="chkbx" checked="checked"></label>
 		</div>
 		<div id="msg"></div>
 	</div>
