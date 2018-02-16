@@ -13,20 +13,20 @@ INIT_PARAM = {
 	jQueryClass : ''
 }
 
-function init(target, param) {
-	target.hide();
+$.fn.initToggle = function(param) {
+	this.hide();
 	// $.each(target, function(k, v) {
 	// console.log(k);
 	// console.log(v);
 	// });
 	TOGGLE.filterParams(param);
-	TOGGLE.createSwitches(target);
+	TOGGLE.createSwitches(this);
 
 	$('.switch').click(function() {
-		target.click();
+		this.click();
 	});
 
-	target.click(function() {
+	this.click(function() {
 		$('.switch').toggle();
 	});
 
