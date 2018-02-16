@@ -1,10 +1,10 @@
 var _groupCnt = 0;
 const
 INIT_PARAM = {
-	on : 'On',
-	off : 'Off',
-	onstyle : 'primary',
-	offstyle : 'light',
+	on : '',
+	off : '',
+	onstyle : '',
+	offstyle : '',
 	labelSize : '',
 	spanSize : '',
 	padding : 0,
@@ -15,41 +15,45 @@ INIT_PARAM = {
 
 $.fn.initToggle = function(param) {
 	this.hide();
-	// $.each(target, function(k, v) {
-	// console.log(k);
-	// console.log(v);
-	// });
 	TOGGLE.filterParams(param);
-	TOGGLE.createSwitches(this);
 
-	$('.switch').click(function() {
-		this.click();
+	$.each(this, function(idx, elem) {
+		var sDiv = TOGGLE.createSwitches($(elem));
+		$(elem).appendTo(sDiv);
+		TOGGLE.handleSwitchSize();
+		TOGGLE.handleSwitchColor();
+
+		sDiv.find('.switch').click(function() {
+			sDiv.find('input[type=checkbox]').click();
+		});
+
+		$(elem).click(function(e) {
+			sDiv.find('.switch').toggle();
+			e.originalEvent.stopImmediatePropagation;
+		});
 	});
-
-	this.click(function() {
-		$('.switch').toggle();
-	});
-
-	TOGGLE.handleSwitchSize();
-	TOGGLE.handleSwitchColor();
-
 	_groupCnt++;
 }
 
 var TOGGLE = {
 	filterParams : function(userParam) {
 		if (userParam !== undefined && userParam !== null && userParam !== '') {
-			INIT_PARAM.on = userParam.on
-			INIT_PARAM.off = userParam.off
-			INIT_PARAM.onstyle = userParam.onstyle
-			INIT_PARAM.offstyle = userParam.offstyle
-			INIT_PARAM.labelSize = userParam.size
+			INIT_PARAM.on = this.checkParams(userParam.on) ? userParam.on
+					: 'On';
+			INIT_PARAM.off = this.checkParams(userParam.off) ? userParam.off
+					: 'Off';
+			INIT_PARAM.onstyle = this.checkParams(userParam.onstyle) ? userParam.onstyle
+					: 'primary';
+			INIT_PARAM.offstyle = this.checkParams(userParam.offstyle) ? userParam.offstyle
+					: 'light';
+			INIT_PARAM.labelSize = this.checkParams(userParam.size) ? userParam.size
+					: '';
 		}
 
 		var size = {
-			def : 50,
-			sm : 43,
-			lg : 55
+			def : 45,
+			sm : 40,
+			lg : 50
 		};
 
 		INIT_PARAM.onstyle = 'btn-' + INIT_PARAM.onstyle.toLowerCase();
@@ -60,19 +64,19 @@ var TOGGLE = {
 			INIT_PARAM.labelSize = 'btn-lg';
 			INIT_PARAM.spanSize = 'toggle-lg';
 			INIT_PARAM.padding = size.lg;
-			INIT_PARAM.jQueryClass = '.sw-lg';
+			INIT_PARAM.jQueryClass = 'sw-lg';
 			break;
 		case 'small':
 			INIT_PARAM.labelSize = 'btn-sm';
 			INIT_PARAM.spanSize = 'toggle-sm';
 			INIT_PARAM.padding = size.sm;
-			INIT_PARAM.jQueryClass = '.sw-sm';
+			INIT_PARAM.jQueryClass = 'sw-sm';
 			break;
 		default:
 			INIT_PARAM.labelSize = '';
 			INIT_PARAM.spanSize = 'toggle-def';
 			INIT_PARAM.padding = size.def;
-			INIT_PARAM.jQueryClass = '.sw-def';
+			INIT_PARAM.jQueryClass = 'sw-def';
 			break;
 		}
 
@@ -104,13 +108,15 @@ var TOGGLE = {
 		sDiv.append(offLabel);
 		offLabel.append('<span class="toggle t-off"></span>');
 
-		$('.toggle').addClass(INIT_PARAM.spanSize);
+		sDiv.find('.toggle').addClass(INIT_PARAM.spanSize);
 
 		if (target.is(':checked')) {
 			offLabel.hide();
 		} else {
 			onLabel.hide();
 		}
+
+		return sDiv;
 	},
 
 	handleSwitchSize : function() {
@@ -132,7 +138,7 @@ var TOGGLE = {
 						$(this).find('.t-off').css('background-color', '#fff');
 					},
 					function() {
-						$(this).find('.t-on').css('background-color',
+						$(this).find('.t-off').css('background-color',
 								COLOR_HANDLER.getBGColor($(this)));
 					});
 		}
@@ -140,13 +146,16 @@ var TOGGLE = {
 		if (INIT_PARAM.isOnOutlined) {
 			$('.switch-on-' + _groupCnt).hover(
 					function() {
-						$(this).find('.t-off').css('background-color', '#fff');
+						$(this).find('.t-on').css('background-color', '#fff');
 					},
 					function() {
 						$(this).find('.t-on').css('background-color',
 								COLOR_HANDLER.getBGColor($(this)));
 					});
 		}
+	},
+	checkParams : function(param) {
+		return ((param !== undefined) && (param != null) && (param.trim().length > 0));
 	}
 }
 var COLOR_HANDLER = {
