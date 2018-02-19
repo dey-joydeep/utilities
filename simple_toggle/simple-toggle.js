@@ -3,7 +3,8 @@
  */
 
 var _groupCnt = 0;
-const SHAPE = Object.freeze({
+const
+SHAPE = Object.freeze({
 	SQUARE : 1,
 	ROUND : 0
 });
@@ -19,7 +20,7 @@ INIT_PARAM = {
 	spanSize : '',
 	padding : 0,
 	shape : SHAPE.SQUARE,
-	changeColor:true;
+	changeColor : true
 }
 
 $.fn.initToggle = function(param) {
@@ -29,7 +30,7 @@ $.fn.initToggle = function(param) {
 	$.each(this, function(idx, elem) {
 		var sDiv = TOGGLE.createSwitches($(elem));
 		$(elem).appendTo(sDiv);
-		TOGGLE.handleSwitchSize();
+		TOGGLE.handleSwitchSize(sDiv);
 		TOGGLE.handleSwitchColor();
 
 		sDiv.find('.switch').click(function() {
@@ -55,57 +56,64 @@ var TOGGLE = {
 					: 'On';
 			INIT_PARAM.off = this.checkParams(userParam.off) ? userParam.off
 					: 'Off';
-			INIT_PARAM.onstyle = this.checkParams(userParam.onstyle) ? userParam.onstyle
-					: 'primary';
-			INIT_PARAM.offstyle = this.checkParams(userParam.offstyle) ? userParam.offstyle
-					: 'light';
+			INIT_PARAM.onClass = this.checkParams(userParam.onClass) ? userParam.onstyle
+					: 'switch-basic';
+			INIT_PARAM.offClass = this.checkParams(userParam.offClass) ? userParam.offstyle
+					: '';
 			INIT_PARAM.labelSize = this.checkParams(userParam.size) ? userParam.size
 					: '';
+
+			if (this.checkParams(userParam.onStyle))
+				INIT_PARAM.onStyle = userParam.onstyle;
+			if (this.checkParams(userParam.offStyle))
+				INIT_PARAM.offStyle = userParam.offstyle;
 		}
 
 		var size = {
-			def : 45,
-			sm : 40,
-			lg : 50
+			XL : 45,
+			L : 50,
+			M : 20,
+			S : 16
 		};
 
-		INIT_PARAM.onstyle = 'btn-' + INIT_PARAM.onstyle.toLowerCase();
-		INIT_PARAM.offstyle = 'btn-' + INIT_PARAM.offstyle.toLowerCase();
+		INIT_PARAM.onStyle = INIT_PARAM.onStyle.toLowerCase();
+		INIT_PARAM.offStyle = INIT_PARAM.offStyle.toLowerCase();
 
-		switch (INIT_PARAM.labelSize.toLowerCase()) {
-		case 'large':
-			INIT_PARAM.labelSize = 'btn-lg';
-			INIT_PARAM.spanSize = 'toggle-lg';
-			INIT_PARAM.padding = size.lg;
+		switch (INIT_PARAM.labelSize.toUpperCase()) {
+		case 'XL':
+			INIT_PARAM.labelSize = 'switch-xl';
+			INIT_PARAM.spanSize = 'toggle-xl';
+			INIT_PARAM.padding = size.XL;
 			break;
-		case 'small':
-			INIT_PARAM.labelSize = 'btn-sm';
-			INIT_PARAM.spanSize = 'toggle-sm';
-			INIT_PARAM.padding = size.sm;
+		case 'L':
+			INIT_PARAM.labelSize = 'switch-l';
+			INIT_PARAM.spanSize = 'toggle-l';
+			INIT_PARAM.padding = size.L;
+			break;
+		case 'M':
+			INIT_PARAM.labelSize = 'switch-m';
+			INIT_PARAM.spanSize = 'toggle-m';
+			INIT_PARAM.padding = size.M;
 			break;
 		default:
-			INIT_PARAM.labelSize = '';
-			INIT_PARAM.spanSize = 'toggle-def';
-			INIT_PARAM.padding = size.def;
+			INIT_PARAM.labelSize = 'switch-s';
+			INIT_PARAM.spanSize = 'toggle-s';
+			INIT_PARAM.padding = size.S;
 			break;
 		}
 
 		INIT_PARAM.padding = INIT_PARAM.padding;
-		INIT_PARAM.isOnOutlined = INIT_PARAM.onstyle.includes('outline');
-		INIT_PARAM.isOffOutlined = INIT_PARAM.offstyle.includes('outline');
 	},
 
 	createSwitches : function(target) {
-		var onLabel = $('<label class="switch switch-on-' + _groupCnt
-				+ ' btn"></label>');
-		var offLabel = $('<label class="switch switch-off-' + _groupCnt
-				+ ' btn"></label>');
+		var onLabel = $('<label class="switch switch-on"></label>');
+		var offLabel = $('<label class="switch switch-off"></label>');
 
 		onLabel.text(INIT_PARAM.on);
 		offLabel.text(INIT_PARAM.off);
 
-		onLabel.addClass(INIT_PARAM.onstyle);
-		offLabel.addClass(INIT_PARAM.offstyle);
+		onLabel.addClass(INIT_PARAM.onClass);
+		offLabel.addClass(INIT_PARAM.offClass);
 
 		onLabel.addClass(INIT_PARAM.labelSize);
 		offLabel.addClass(INIT_PARAM.labelSize);
@@ -127,18 +135,16 @@ var TOGGLE = {
 		return sDiv;
 	},
 
-	handleSwitchSize : function() {
-		$('.switch-off-' + _groupCnt).css('padding-left',
-				INIT_PARAM.padding + '%');
-		$('.switch-on-' + _groupCnt).css('padding-right',
-				INIT_PARAM.padding + '%');
+	handleSwitchSize : function(parent) {
+		parent.find('.switch-off').css('padding-left', INIT_PARAM.padding + '%');
+		parent.find('.switch-on').css('padding-right', INIT_PARAM.padding + '%');
 	},
 
 	handleSwitchColor : function() {
-		$('.switch-off-' + _groupCnt).find('.t-off').css('background-color',
-				COLOR_HANDLER.getTextColor($('.switch-off-' + _groupCnt)));
-		$('.switch-on-' + _groupCnt).find('.t-on').css('background-color',
-				COLOR_HANDLER.getTextColor($('.switch-on-' + _groupCnt)));
+		$('.switch-off').find('.t-off').css('background-color',
+				COLOR_HANDLER.getTextColor($('.switch-off')));
+		$('.switch-on').find('.t-on').css('background-color',
+				COLOR_HANDLER.getTextColor($('.switch-on')));
 	},
 	checkParams : function(param) {
 		return ((param !== undefined) && (param != null) && (param.trim().length > 0));
