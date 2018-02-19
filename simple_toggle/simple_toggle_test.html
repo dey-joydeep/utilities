@@ -11,29 +11,46 @@
 <script>
 	$(function() {
 		var param1 = {
-			on : 'Decorated',
-			off : 'Simple',
-			onstyle : 'primary',
-			offstyle : 'dark',
-			size : 'large'
-		};
-		var param2 = {
 			on : '',
 			off : 'Simple',
-			onstyle : 'outline-primary',
-			offstyle : 'outline-dark',
-			size : 'small'
+			onStyle : '',
+			offStyle : '',
+			onClass : '',
+			offClass : '',
+			size : 'S'
+		};
+		var param2 = {
+			on : 'Decorated',
+			off : '',
+			onStyle : '',
+			offStyle : '',
+			onClass : '',
+			offClass : '',
+			size : 'M'
 		};
 		var param3 = {
 			on : 'Decorated',
 			off : 'Simple',
-			onstyle : 'outline-primary',
-			offstyle : 'outline-dark',
+			onStyle : '',
+			offStyle : '',
+			onClass : '',
+			offClass : '',
+			size : 'L'
+		};
+		var param4 = {
+			on : 'Decorated',
+			off : 'Simple',
+			onStyle : '',
+			offStyle : '',
+			onClass : '',
+			offClass : '',
+			size : 'XL'
 		};
 
 		$('#chkbx1').initToggle(param1);
 		$('#chkbx2').initToggle(param2);
 		$('#chkbx3').initToggle(param3);
+		$('#chkbx4').initToggle(param4);
 
 		// 		$('.chkbx').initToggle(param2);
 
@@ -46,18 +63,23 @@
 <body>
 	<div style="margin-top: 10px; margin-left: 25px;">
 		<div>
-			<label>Mode Large: <input type="checkbox" id="chkbx1"
+			<label>Small: <input type="checkbox" id="chkbx1"
 				class="chkbx" checked="checked"></label>
 		</div>
 		<br>
 		<div>
-			<label>Mode Small: <input type="checkbox" id="chkbx2"
-				class="chkbx" checked="checked"></label>
-		</div>
-		<br>
-		<div>
-			<label>Mode Default: <input type="checkbox" id="chkbx3"
+			<label>Medium: <input type="checkbox" id="chkbx2"
 				class="chkbx""></label>
+		</div>
+		<br>
+		<div>
+			<label>Large: <input type="checkbox" id="chkbx3"
+				class="chkbx" checked="checked"></label>
+		</div>
+		<br>
+		<div>
+			<label>Extra Large: <input type="checkbox" id="chkbx4"
+				class="chkbx" checked="checked"></label>
 		</div>
 		<div id="msg"></div>
 	</div>
