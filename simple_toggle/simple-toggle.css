@@ -1,5 +1,5 @@
 .switch-div {
-	display: inline-block;
+	display: inline;
 	position: relative;
 	width: 100%;
 	height: 32px;
@@ -9,9 +9,28 @@
 	cursor: pointer;
 	position: relative;
 	border: 1px solid transparent;
-	border-radius: 20px;
 	vertical-align: middle;
 	text-align: center;
+}
+
+.sw-on {
+	color: #fff;
+	border-color: #03a9f4;
+	background-color: #03a9f4;
+}
+
+.sw-off {
+	color: #fff;
+	border-color: #d9dbc8;
+	background-color: #d9dbc8;
+}
+
+.switch-box {
+
+}
+
+.switch-oval {
+	border-radius: 20px;
 }
 
 .switch-s {
@@ -34,23 +53,19 @@
 	font-size: 1.4rem;
 }
 
-.switch-basic {
-	color: #fff;
-	border-color: #03a9f4;
-	background-color: #03a9f4;
-}
-
-.switch-off {
-	color: #fff;
-	border-color: #434444;
-	background-color: #434444;
-}
-
 .toggle {
 	position: absolute;
-	border-radius: 50%;
 	-webkit-transition: .4s;
 	transition: .4s;
+	left: 2px;
+}
+
+.toggle-box {
+	width: 10px
+}
+
+.toggle-round {
+	border-radius: 50%;
 }
 
 .toggle-s {
@@ -77,12 +92,18 @@
 	bottom: 5px;
 }
 
+input:checked + .switch>span {
+	transform: translateX(20px);
+}
+
 .t-off {
-	left: 0;
-	margin-left: 4%;
+	/* left: 0;
+	margin-left: 4%; */
+	background-color: #fff;
 }
 
 .t-on {
-	right: 0px;
-	margin-right: 3%;
+	/* right: 0px;
+	margin-right: 3%; */
+	background-color: #fff;
 }
