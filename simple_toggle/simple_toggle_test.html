@@ -17,7 +17,8 @@
 			offStyle : '',
 			onClass : '',
 			offClass : '',
-			size : 'S'
+			size : 'S',
+			shape : SHAPE.SQUARE
 		};
 		var param2 = {
 			on : 'Decorated',
@@ -26,7 +27,8 @@
 			offStyle : '',
 			onClass : '',
 			offClass : '',
-			size : 'M'
+			size : 'M',
+			shape : SHAPE.OVAL
 		};
 		var param3 = {
 			on : 'Decorated',
@@ -35,7 +37,8 @@
 			offStyle : '',
 			onClass : '',
 			offClass : '',
-			size : 'L'
+			size : 'L',
+			shape : SHAPE.SQUARE
 		};
 		var param4 = {
 			on : 'Decorated',
@@ -44,13 +47,14 @@
 			offStyle : '',
 			onClass : '',
 			offClass : '',
-			size : 'XL'
+			size : 'XL',
+			shape : SHAPE.SQUARE
 		};
 
 		$('#chkbx1').initToggle(param1);
-		$('#chkbx2').initToggle(param2);
-		$('#chkbx3').initToggle(param3);
-		$('#chkbx4').initToggle(param4);
+		// 		$('#chkbx2').initToggle(param2);
+		// 		$('#chkbx3').initToggle(param3);
+		// 		$('#chkbx4').initToggle(param4);
 
 		// 		$('.chkbx').initToggle(param2);
 
@@ -64,7 +68,7 @@
 	<div style="margin-top: 10px; margin-left: 25px;">
 		<div>
 			<label>Small: <input type="checkbox" id="chkbx1"
-				class="chkbx" checked="checked"></label>
+				class="chkbx"></label>
 		</div>
 		<br>
 		<div>
