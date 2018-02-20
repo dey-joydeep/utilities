@@ -1,183 +1,109 @@
-/**
- * Simple toggle switch using jQuery. Copyright ©Joydeep Dey, 2018
- */
-
-const
-SHAPE = Object.freeze({
-	BOX : 'BOX',
-	OVAL : 'OVL'
-});
-
-const
-size = Object.freeze({
-	XL : 2,
-	L : 1.6,
-	M : 1.3,
-	S : 1
-});
-
-const
-INIT_PARAM = {
-	onText : 'On',
-	offText : 'Off',
-	onClass : '',
-	offClass : '',
-	onStyle : '',
-	offStyle : '',
-	labelSize : '',
-	spanSize : '',
-	padding : 0,
-	shape : '',
-	changeColor : true
+.switch-div {
+	display: inline;
+	position: relative;
+	width: 100%;
+	height: 32px;
 }
 
-$.fn.initToggle = function(param) {
-	this.hide();
-	TOGGLE.filterParams(param);
-
-	$.each(this, function(idx, elem) {
-		var sDiv = TOGGLE.create($(elem));
-		TOGGLE.update($(this));
-		TOGGLE.handleSize(sDiv);
-
-		sDiv.find('.switch').click(function() {
-			sDiv.find('input[type=checkbox]').click();
-		});
-
-		$(elem).click(function(e) {
-			TOGGLE.update($(this));
-		});
-	});
+.switch {
+	cursor: pointer;
+	position: relative;
+	border: 1px solid transparent;
+	vertical-align: middle;
+	text-align: center;
 }
 
-$.fn.destroyToggle = function() {
-	$.each(this, function(idx, elem) {
-
-	});
+.sw-on {
+	color: #fff;
+	border-color: #03a9f4;
+	background-color: #03a9f4;
 }
 
-var TOGGLE = {
-	filterParams : function(userParam) {
-		if (userParam !== undefined && userParam !== null && userParam !== '') {
-			INIT_PARAM.on = this.checkParams(userParam.on) ? userParam.on
-					: 'On';
-			INIT_PARAM.off = this.checkParams(userParam.off) ? userParam.off
-					: 'Off';
-			INIT_PARAM.onClass = this.checkParams(userParam.onClass) ? userParam.onstyle
-					: 'sw-on';
-			INIT_PARAM.offClass = this.checkParams(userParam.offClass) ? userParam.offstyle
-					: 'sw-off';
-			INIT_PARAM.labelSize = this.checkParams(userParam.size) ? userParam.size
-					: '';
-			INIT_PARAM.shape = this.checkParams(userParam.shape) ? userParam.shape
-					: SHAPE.SQUARE;
+.sw-off {
+	color: #fff;
+	border-color: #d9dbc8;
+	background-color: #d9dbc8;
+}
 
-			if (this.checkParams(userParam.onStyle))
-				INIT_PARAM.onStyle = userParam.onstyle;
-			if (this.checkParams(userParam.offStyle))
-				INIT_PARAM.offStyle = userParam.offstyle;
-		}
+.switch-box {
 
-		INIT_PARAM.onStyle = INIT_PARAM.onStyle.toLowerCase();
-		INIT_PARAM.offStyle = INIT_PARAM.offStyle.toLowerCase();
+}
 
-		switch (INIT_PARAM.labelSize.toUpperCase()) {
-		case 'XL':
-			INIT_PARAM.labelSize = 'switch-xl';
-			INIT_PARAM.spanSize = 'toggle-xl';
-			INIT_PARAM.padding = size.XL;
-			break;
-		case 'L':
-			INIT_PARAM.labelSize = 'switch-l';
-			INIT_PARAM.spanSize = 'toggle-l';
-			INIT_PARAM.padding = size.L;
-			break;
-		case 'M':
-			INIT_PARAM.labelSize = 'switch-m';
-			INIT_PARAM.spanSize = 'toggle-m';
-			INIT_PARAM.padding = size.M;
-			break;
-		default:
-			INIT_PARAM.labelSize = 'switch-s';
-			INIT_PARAM.spanSize = 'toggle-s';
-			INIT_PARAM.padding = size.S;
-			break;
-		}
+.switch-oval {
+	border-radius: 20px;
+}
 
-		INIT_PARAM.padding = INIT_PARAM.padding;
-	},
+.switch-s {
+	padding: 2px 5px;
+	font-size: .8rem;
+}
 
-	create : function(target) {
-		var toggle = $('<label class="switch">&nbsp;</label>');
+.switch-m {
+	padding: 4px 5px;
+	font-size: 1rem;
+}
 
-		toggle.addClass(INIT_PARAM.onClass);
-		toggle.addClass(INIT_PARAM.labelSize);
+.switch-l {
+	padding: 6px 5px;
+	font-size: 1.2rem;
+}
 
-		var sDiv = $('<div class="switch-div"></div>').insertAfter(target);
-		sDiv.append(toggle);
-		toggle.append('<span class="toggle"></span>');
+.switch-xl {
+	padding: 8px 5px;
+	font-size: 1.4rem;
+}
 
-		var tElem = sDiv.find('.toggle');
-		tElem.addClass(INIT_PARAM.spanSize);
+.toggle {
+	position: absolute;
+	-webkit-transition: .4s;
+	transition: .4s;
+	left: 2px;
+}
 
-		if (INIT_PARAM.shape === SHAPE.OVAL) {
-			toggle.addClass('switch-oval');
-			tElem.addClass('toggle-round');
-		} else {
-			toggle.addClass('switch-square');
-			tElem.addClass('toggle-square');
-		}
+.toggle-box {
+	width: 10px
+}
 
-		sDiv.prepend(target);
+.toggle-round {
+	border-radius: 50%;
+}
 
-		return sDiv;
-	},
+.toggle-s {
+	height: 15px;
+	width: 15px;
+	bottom: 2px;
+}
 
-	update : function(target) {
-		var label = target.next();
-		var span = label.children();
-		if (target.is(':checked')) {
+.toggle-m {
+	height: 18px;
+	width: 18px;
+	bottom: 3px;
+}
 
-			this.addText(label, INIT_PARAM.on);
-			if (label.hasClass(INIT_PARAM.offClass))
-				label.removeClass(INIT_PARAM.offClass);
-			label.addClass(INIT_PARAM.onClass);
+.toggle-l {
+	height: 23px;
+	width: 23px;
+	bottom: 4px;
+}
 
-			if (span.hasClass('t-off'))
-				span.removeClass('t-off');
-			span.addClass('t-on');
-			label.css('padding-left', '');
-			label.css('padding-right', INIT_PARAM.padding + '%');
-		} else {
-			this.addText(label, INIT_PARAM.off);
-			if (label.hasClass(INIT_PARAM.onClass))
-				label.removeClass(INIT_PARAM.onClass);
-			label.addClass(INIT_PARAM.offClass);
+.toggle-xl {
+	height: 28px;
+	width: 28px;
+	bottom: 5px;
+}
 
-			if (span.hasClass('t-on'))
-				span.removeClass('t-on');
-			span.addClass('t-off');
-			label.css('padding-right', '');
-			label.css('padding-left', INIT_PARAM.padding + '%');
-		}
-	},
+input:checked + .switch>span {
+	transform: translateX(20px);
+}
 
-	remove : function(target) {
+.t-off {
+	/* left: 0;
+	margin-left: 4%; */
+	background-color: #fff;
+}
 
-	},
-
-	handleSize : function(parent) {
-		// parent.find('.switch').css('padding-right', INIT_PARAM.padding +
-		// '%');
-	},
-
-	checkParams : function(param) {
-		return ((param !== undefined) && (param != null) && (param.trim().length > 0));
-	},
-
-	addText : function(target, text) {
-		var textNode = target[0].childNodes[0];
-		var data = textNode.data;
-		textNode.replaceData(0, data.length, text);
-	}
+.t-on {
+	/* right: 0px;
+	margin-right: 3%; */
+	background-color: #fff;
 }
