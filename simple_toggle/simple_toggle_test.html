@@ -11,7 +11,7 @@
 <script>
 	$(function() {
 		var param1 = {
-			on : '',
+			on : 'Decorated',
 			off : 'Simple',
 			onStyle : '',
 			offStyle : '',
@@ -51,16 +51,57 @@
 			shape : SHAPE.SQUARE
 		};
 
-		$('#chkbx1').initToggle(param1);
+		// 		$('#chkbx1').initToggle(param1);
 		// 		$('#chkbx2').initToggle(param2);
 		// 		$('#chkbx3').initToggle(param3);
 		// 		$('#chkbx4').initToggle(param4);
 
 		// 		$('.chkbx').initToggle(param2);
 
-		$('input[type="checkbox"]').change(function() {
-			$('#msg').text('Checkbox checked: ' + $(this).is(':checked'));
+		$('input[type="checkbox"]')
+				.change(
+						function() {
+							var text = $(this).parent()[0].childNodes[0].data
+									.trim().replace(':', '');
+							var msg = text
+									+ ' Checkbox: '
+									+ ($(this).is(':checked') ? 'checked'
+											: 'unchecked');
+							$('#msg').text(msg);
+						});
+
+		$('#demo').find('input[type=button]').click(function() {
+			var vals = $(this).attr('data-feed').split(' ');
+
+			switch (vals[0]) {
+			case 's':
+				$('.small').execute(vals[1], param1);
+				break;
+			case 'm':
+				$('.medium').execute(vals[1], param2);
+				break;
+			case 'l':
+				$('.large').execute(vals[1], param3);
+				break;
+			case 'xl':
+				$('.xlarge').execute(vals[1], param4);
+				break;
+			}
 		});
+
+		$.fn.execute = function(type, param) {
+			switch (type) {
+			case '0':
+				this.initToggle(param);
+				break;
+			case '1':
+				this.click();
+				break;
+			case '2':
+				this.destroyToggle();
+				break;
+			}
+		};
 	});
 </script>
 </head>
@@ -68,24 +109,81 @@
 	<div style="margin-top: 10px; margin-left: 25px;">
 		<div>
 			<label>Small: <input type="checkbox" id="chkbx1"
-				class="chkbx"></label>
+				class="chkbx small"></label>
 		</div>
 		<br>
 		<div>
 			<label>Medium: <input type="checkbox" id="chkbx2"
-				class="chkbx""></label>
+				class="chkbx medium""></label>
 		</div>
 		<br>
 		<div>
 			<label>Large: <input type="checkbox" id="chkbx3"
-				class="chkbx" checked="checked"></label>
+				class="chkbx large" checked="checked"></label>
 		</div>
 		<br>
 		<div>
 			<label>Extra Large: <input type="checkbox" id="chkbx4"
-				class="chkbx" checked="checked"></label>
+				class="chkbx xlarge" checked="checked"></label>
 		</div>
 		<div id="msg"></div>
+
+		<table border="1" id="demo">
+			<thead>
+				<tr>
+					<th>Type</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td rowspan="3">Small</td>
+					<td><input type="button" value=" Create" data-feed="s 0"></td>
+				</tr>
+				<tr>
+					<td><input type="button" value=" Update" data-feed="s 1"></td>
+				</tr>
+				<tr>
+					<td><input type="button" value=" Delete" data-feed="s 2"></td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<td rowspan="3">Medium</td>
+					<td><input type="button" value=" Create" data-feed="m 0"></td>
+				</tr>
+				<tr>
+					<td><input type="button" value=" Update" data-feed="m 1"></td>
+				</tr>
+				<tr>
+					<td><input type="button" value=" Delete" data-feed="m 2"></td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<td rowspan="3">Large</td>
+					<td><input type="button" value=" Create" data-feed="l 0"></td>
+				</tr>
+				<tr>
+					<td><input type="button" value=" Update" data-feed="l 1"></td>
+				</tr>
+				<tr>
+					<td><input type="button" value=" Delete" data-feed="l 2"></td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<td rowspan="3">Extra Large</td>
+					<td><input type="button" value=" Create" data-feed="xl 0"></td>
+				</tr>
+				<tr>
+					<td><input type="button" value=" Update" data-feed="xl 1"></td>
+				</tr>
+				<tr>
+					<td><input type="button" value=" Delete" data-feed="xl 2"></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>
