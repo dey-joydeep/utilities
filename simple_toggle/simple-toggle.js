@@ -2,6 +2,8 @@
  * Simple toggle switch using jQuery. Copyright ©Joydeep Dey, 2018
  */
 
+"use strict";
+
 const
 SHAPE = Object.freeze({
 	BOX : 'BOX',
@@ -13,7 +15,7 @@ size = Object.freeze({
 	XL : 2,
 	L : 1.6,
 	M : 1.3,
-	S : 1
+	S : 1.4
 });
 
 const
@@ -36,24 +38,29 @@ $.fn.initToggle = function(param) {
 	TOGGLE.filterParams(param);
 
 	$.each(this, function(idx, elem) {
-		var sDiv = TOGGLE.create($(elem));
-		TOGGLE.update($(this));
-		TOGGLE.handleSize(sDiv);
-
-		sDiv.find('.switch').click(function() {
-			sDiv.find('input[type=checkbox]').click();
-		});
-
-		$(elem).click(function(e) {
+		if (!$(elem).next().hasClass('switch-div')) {
+			var sDiv = TOGGLE.create($(elem));
 			TOGGLE.update($(this));
-		});
+
+			sDiv.find('.switch').click(function() {
+				sDiv.prev().click();
+			});
+
+			$(elem).click(function(e) {
+				TOGGLE.update($(this));
+			});
+		} else {
+			console.log('Toggle switch is already created.')
+		}
 	});
 }
 
 $.fn.destroyToggle = function() {
-	$.each(this, function(idx, elem) {
-
-	});
+	if ($(this).next().hasClass('switch-div')) {
+		TOGGLE.remove($(this));
+	} else {
+		console.log('No toggle switch is found to destroy.');
+	}
 }
 
 var TOGGLE = {
@@ -128,13 +135,11 @@ var TOGGLE = {
 			tElem.addClass('toggle-square');
 		}
 
-		sDiv.prepend(target);
-
 		return sDiv;
 	},
 
 	update : function(target) {
-		var label = target.next();
+		var label = target.next().find('.switch');
 		var span = label.children();
 		if (target.is(':checked')) {
 
@@ -143,32 +148,33 @@ var TOGGLE = {
 				label.removeClass(INIT_PARAM.offClass);
 			label.addClass(INIT_PARAM.onClass);
 
+			label.css('padding-left', '');
+			label.css('padding-right', INIT_PARAM.padding + '%');
+
+			var translate = (label.width() - span.width()) + 'px';
+			span.css('transform', 'translateX(' + translate + ')');
 			if (span.hasClass('t-off'))
 				span.removeClass('t-off');
 			span.addClass('t-on');
-			label.css('padding-left', '');
-			label.css('padding-right', INIT_PARAM.padding + '%');
 		} else {
 			this.addText(label, INIT_PARAM.off);
 			if (label.hasClass(INIT_PARAM.onClass))
 				label.removeClass(INIT_PARAM.onClass);
 			label.addClass(INIT_PARAM.offClass);
 
+			label.css('padding-right', '');
+			label.css('padding-left', INIT_PARAM.padding + '%');
+			span.css('transform', '');
 			if (span.hasClass('t-on'))
 				span.removeClass('t-on');
 			span.addClass('t-off');
-			label.css('padding-right', '');
-			label.css('padding-left', INIT_PARAM.padding + '%');
 		}
 	},
 
 	remove : function(target) {
+		$(target).show();
+		$(target).next().remove();
 
-	},
-
-	handleSize : function(parent) {
-		// parent.find('.switch').css('padding-right', INIT_PARAM.padding +
-		// '%');
 	},
 
 	checkParams : function(param) {
